@@ -150,3 +150,73 @@
     </div>
 
     <script>
+        const noBtn = document.getElementById('noBtn');
+        const card = document.querySelector('.card');
+        let answers = {};
+        const totalSteps = 9;
+
+        // Логика бегающей кнопки "Нет"
+        function moveButton() {
+            const cardRect = card.getBoundingClientRect();
+            const maxX = cardRect.width - noBtn.offsetWidth - 20;
+            const maxY = cardRect.height - noBtn.offsetHeight - 20;
+            const randomX = Math.random() * maxX + 10;
+            const randomY = Math.random() * maxY + 10;
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+        noBtn.addEventListener('mouseenter', moveButton);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveButton(); });
+
+        // Старт анкеты
+        function startQuiz() {
+            document.getElementById('pBar').style.display = 'block';
+            goNext(2);
+        }
+
+        // Переключение
+        function goNext(num) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + num).classList.add('active');
+            
+            if(num > 1 && num <= 10) {
+                const currentStep = num - 1;
+                document.getElementById('pFill').style.width = ((currentStep / totalSteps) * 100) + '%';
+            }
+        }
+
+        // Выбор варианта
+        function selectOpt(screenNum, val) {
+            const currentScreen = document.getElementById('screen' + screenNum);
+            currentScreen.querySelectorAll('.option-item').forEach(i => i.classList.remove('selected'));
+            event.target.classList.add('selected');
+            
+            // Запоминаем ответ
+            answers['q' + screenNum] = val;
+            
+            // Включаем кнопку далее
+            document.getElementById('next' + screenNum).disabled = false;
+        }
+
+        // Финал
+        function finishAll() {
+            document.getElementById('pBar').style.display = 'none';
+            
+            const summaryHTML = `
+                📌 <strong>Кушаем:</strong> ${answers.q2}<br>
+                📌 <strong>Пьем:</strong> ${answers.q3}<br>
+                📌 <strong>Время:</strong> ${answers.q4}<br>
+                📌 <strong>Пунктуальность:</strong> ${answers.q5}<br>
+                📌 <strong>Стиль:</strong> ${answers.q6}<br>
+                📌 <strong>При неловком молчании:</strong> ${answers.q7}<br>
+                📌 <strong>Кто платит:</strong> ${answers.q8}<br>
+                📌 <strong>Если скучно:</strong> ${answers.q9}<br>
+                📌 <strong>Уровень душности:</strong> ${answers.q10}
+            `;
+            
+            document.getElementById('summary').innerHTML = summaryHTML;
+            goNext(11);
+        }
+    </script>
+</body>
+</html>
