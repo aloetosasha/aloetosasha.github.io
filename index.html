@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение ✨</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        body {
+            background-color: #ffeef2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        h1, h2 {
+            color: #d1496c;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .emoji-cat {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 28px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.1s ease;
+        }
+
+        .btn-yes {
+            background-color: #4caf50;
+            color: white;
+            z-index: 10;
+        }
+
+        .btn-no {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .food-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .food-item {
+            background: #fff5f7;
+            border: 2px solid #ffd1dc;
+            padding: 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+            transition: all 0.2s;
+        }
+
+        .food-item:hover, .food-item.selected {
+            background: #ffe3e9;
+            border-color: #d1496c;
+            transform: scale(1.02);
+        }
+
+        .btn-next {
+            background-color: #d1496c;
+            color: white;
+            width: 100%;
+        }
+
+        .btn-next:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="screen active" id="screen1">
+            <h1>Пойдешь со мной на свидание? 🥺</h1>
+            <span class="emoji-cat">🐱🐾</span>
+            <div class="btn-group" id="btnContainer">
+                <button class="btn-yes" onclick="nextScreen(2)">Да!</button>
+                <button class="btn-no" id="noBtn">Нет</button>
+            </div>
+        </div>
+
+        <div class="screen" id="screen2">
+            <h2>Что будем кушать? 🍕</h2>
+            <div class="food-list">
+                <div class="food-item" onclick="selectFood(this, 'Пасту 🍝')">🍝 Паста</div>
+                <div class="food-item" onclick="selectFood(this, 'Бургеры 🍔')">🍔 Бургеры</div>
+                <div class="food-item" onclick="selectFood(this, 'Суши 🥢')">🥢 Суши / Роллы</div>
+                <div class="food-item" onclick="selectFood(this, 'Пиццу 🍕')">🍕 Пицца</div>
+                <div class="food-item" onclick="selectFood(this, 'Кофе и десерт 🍰')">🍰 Кофе и десерт</div>
+            </div>
+            <button class="btn-next" id="nextBtn" disabled onclick="finish()">Готово ✨</button>
+        </div>
+
+        <div class="screen" id="screen3">
+            <h1>Ура! 🎉</h1>
+            <span class="emoji-cat">😻❤️</span>
+            <h2 id="resultText" style="font-size: 18px; color: #555; font-weight: normal;"></h2>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const card = document.querySelector('.card');
+
+        // Логика бегающей кнопки
+        function moveButton(e) {
+            const cardRect = card.getBoundingClientRect();
+            
+            // Вычисляем случайные координаты внутри карточки
+            const maxX = cardRect.width - noBtn.offsetWidth - 20;
+            const maxY = cardRect.height - noBtn.offsetHeight - 20;
+            
+            const randomX = Math.random() * maxX + 10;
+            const randomY = Math.random() * maxY + 10;
+            
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        noBtn.addEventListener('mouseenter', moveButton);
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveButton();
+        });
+
+        // Переключение экранов
+        function nextScreen(num) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + num).classList.add('active');
+        }
+
+        // Выбор еды
+        let food = '';
+        function selectFood(el, choice) {
+            document.querySelectorAll('.food-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+            food = choice;
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function finish() {
+            document.getElementById('resultText').innerHTML = `Тогда договорились! Выбираем <strong>${food}</strong> и отлично проводим время! 🥰`;
+            nextScreen(3);
+        }
+    </script>
+</body>
+</html>
