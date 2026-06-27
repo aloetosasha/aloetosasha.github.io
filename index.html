@@ -9,20 +9,24 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
         body { background-color: #ffeef2; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
-        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5); text-align: center; max-width: 450px; width: 100%; min-height: 500px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5); text-align: center; max-width: 450px; width: 100%; min-height: 520px; display: flex; flex-direction: column; justify-content: center; position: relative; }
         .screen { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
         .screen.active { display: flex; }
         h1, h2 { color: #d1496c; margin-bottom: 15px; font-size: 20px; line-height: 1.4; }
         
         /* Стили для гифок с котиками */
-        .cat-gif { width: 150px; height: 150px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .cat-gif { width: 150px; height: 150px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: block; }
         
         .btn-group { display: flex; gap: 15px; justify-content: center; align-items: center; width: 100%; height: 60px; position: relative; }
         button { padding: 12px 28px; font-size: 16px; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.2s; }
         .btn-yes { background-color: #4caf50; color: white; z-index: 10; }
         .btn-no { background-color: #f44336; color: white; position: absolute; z-index: 10; }
         .options-list { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 15px; }
-        .option-item { background: #fff5f7; border: 2px solid #ffd1dc; padding: 12px; border-radius: 15px; cursor: pointer; font-size: 15px; font-weight: bold; color: #555; text-align: left; transition: all 0.2s; }
+        
+        .option-item { background: #fff5f7; border: 2px solid #ffd1dc; padding: 12px; border-radius: 15px; cursor: pointer; font-size: 15px; font-weight: bold; color: #555; text-align: left; transition: all 0.2s; pointer-events: auto; }
+        /* Защита от багов клика на внутренние элементы */
+        .option-item * { pointer-events: none; }
+        
         .option-item:hover, .option-item.selected { background: #ffe3e9; border-color: #d1496c; transform: scale(1.02); }
         .btn-next { background-color: #d1496c; color: white; width: 100%; }
         .btn-next:disabled { background-color: #cccccc; cursor: not-allowed; }
@@ -51,10 +55,10 @@
             <h2>1. Что будем кушать? 🍕</h2>
             <img class="cat-gif" src="https://media.tenor.com/reXfXzR_f0YAAAAM/mochi-peach.gif" alt="котик">
             <div class="options-list">
-                <div class="option-item" onclick="selectOpt(2, 'Паста/Пицца 🇮🇹')">🇮🇹 Итальянская классика</div>
-                <div class="option-item" onclick="selectOpt(2, 'Суши/Роллы 🥢')">🥢 Суши (буду красиво ронять их в соус)</div>
-                <div class="option-item" onclick="selectOpt(2, 'Бургеры 🍔')">🍔 Бургеры (измажемся соусом вместе)</div>
-                <div class="option-item" onclick="selectOpt(2, 'Кофе и святой дух ☕️')">☕️ Чисто кофе и десертик</div>
+                <div class="option-item" onclick="selectOpt(2, this, 'Паста/Пицца 🇮🇹')"><span>🇮🇹 Итальянская классика</span></div>
+                <div class="option-item" onclick="selectOpt(2, this, 'Суши/Роллы 🥢')"><span>🥢 Суши (буду красиво ронять их в соус)</span></div>
+                <div class="option-item" onclick="selectOpt(2, this, 'Бургеры 🍔')"><span>🍔 Бургеры (измажемся соусом вместе)</span></div>
+                <div class="option-item" onclick="selectOpt(2, this, 'Кофе и святой дух ☕️')"><span>☕️ Чисто кофе и десертик</span></div>
             </div>
             <button class="btn-next" id="next2" disabled onclick="goNext(3)">Далее ➡️</button>
         </div>
@@ -64,10 +68,10 @@
             <h2>2. А пить что будем? 🥂</h2>
             <img class="cat-gif" src="https://media.tenor.com/f7S76eX2bY0AAAAM/peach-goma.gif" alt="котик">
             <div class="options-list">
-                <div class="option-item" onclick="selectOpt(3, 'Винишко/Коктейли 🍷')">🍷 Игристое/Винишко/Коктейли</div>
-                <div class="option-item" onclick="selectOpt(3, 'Чай/Кофе ☕️')">☕️ Благородный чай или кофеек</div>
-                <div class="option-item" onclick="selectOpt(3, 'Просто водичку 💧')">💧 Водичку (я за ЗОЖ и трезвый ум)</div>
-                <div class="option-item" onclick="selectOpt(3, 'Лимонады 🍹')">🍹 Сладкие химозные лимонады</div>
+                <div class="option-item" onclick="selectOpt(3, this, 'Винишко/Коктейли 🍷')"><span>🍷 Игристое/Винишко/Коктейли</span></div>
+                <div class="option-item" onclick="selectOpt(3, this, 'Чай/Кофе ☕️')"><span>☕️ Благородный чай или кофеек</span></div>
+                <div class="option-item" onclick="selectOpt(3, this, 'Просто водичку 💧')"><span>💧 Водичку (я за ЗОЖ и трезвый ум)</span></div>
+                <div class="option-item" onclick="selectOpt(3, this, 'Лимонады 🍹')"><span>🍹 Сладкие химозные лимонады</span></div>
             </div>
             <button class="btn-next" id="next3" disabled onclick="goNext(4)">Далее ➡️</button>
         </div>
@@ -77,9 +81,9 @@
             <h2>3. Выбери идеальное время: ⏰</h2>
             <img class="cat-gif" src="https://media.tenor.com/T0bH4vS-L3oAAAAM/cat-clock.gif" alt="котик">
             <div class="options-list">
-                <div class="option-item" onclick="selectOpt(4, 'Днем ☀️')">☀️ Днем (пока светло и безопасно)</div>
-                <div class="option-item" onclick="selectOpt(4, 'Вечером 🌙')">🌙 Вечером (романтика, фонари, все дела)</div>
-                <div class="option-item" onclick="selectOpt(4, 'В 4 утра 🧛')">🧛 В 4 утра (время для искателей приключений)</div>
+                <div class="option-item" onclick="selectOpt(4, this, 'Днем ☀️')"><span>☀️ Днем (пока светло и безопасно)</span></div>
+                <div class="option-item" onclick="selectOpt(4, this, 'Вечером 🌙')"><span>🌙 Вечером (романтика, фонари, все дела)</span></div>
+                <div class="option-item" onclick="selectOpt(4, this, 'В 4 утра 🧛')"><span>🧛 В 4 утра (время для искателей приключений)</span></div>
             </div>
             <button class="btn-next" id="next4" disabled onclick="goNext(5)">Далее ➡️</button>
         </div>
@@ -89,9 +93,9 @@
             <h2>4. На сколько ты планируешь опоздать? ⏳</h2>
             <img class="cat-gif" src="https://media.tenor.com/uSSeE3vY-m0AAAAM/tkthao219-bubududu.gif" alt="котик">
             <div class="options-list">
-                <div class="option-item" onclick="selectOpt(5, 'Приду вовремя ⏱️')">⏱️ Приду минута в минуту (шок!)</div>
-                <div class="option-item" onclick="selectOpt(5, 'На 10-15 минут 🤏')">🤏 На 10-15 минут (королевское опоздание)</div>
-                <div class="option-item" onclick="selectOpt(5, 'На час, забудь 🤷‍♀️')">🤷‍♀️ На час. Можешь пока погулять...</div>
+                <div class="option-item" onclick="selectOpt(5, this, 'Приду вовремя ⏱️')"><span>⏱️ Приду минута в минуту (шок!)</span></div>
+                <div class="option-item" onclick="selectOpt(5, this, 'На 10-15 минут 🤏')"><span>🤏 На 10-15 минут (королевское опоздание)</span></div>
+                <div class="option-item" onclick="selectOpt(5, this, 'На час, забудь 🤷‍♀️')"><span>🤷‍♀️ На час. Можешь пока погулять...</span></div>
             </div>
             <button class="btn-next" id="next5" disabled onclick="goNext(6)">Далее ➡️</button>
         </div>
@@ -101,9 +105,9 @@
             <h2>5. Какой у нас дресс-код? 👗</h2>
             <img class="cat-gif" src="https://media.tenor.com/b_VfRz6-Fz0AAAAM/goma-goma-cat.gif" alt="котик">
             <div class="options-list">
-                <div class="option-item" onclick="selectOpt(6, 'Красивый/Кэжуал ✨')">✨ Стильно-модно-молодежно (кэжуал)</div>
-                <div class="option-item" onclick="selectOpt(6, 'Сверх-официальный 🤵')">🤵 Вечернее платье и смокинг (пафос!)</div>
-                <div class="option-item" onclick="selectOpt(6, 'Домашний/Оверсайз 👕')">👕 В любимых растянутых худи и трениках</div>
+                <div class="option-item" onclick="selectOpt(6, this, 'Красивый/Кэжуал ✨')"><span>✨ Стильно-модно-молодежно (кэжуал)</span></div>
+                <div class="option-item" onclick="selectOpt(6, this, 'Сверх-официальный 🤵')"><span>🤵 Вечернее платье и смокинг (пафос!)</span></div>
+                <div class="option-item" onclick="selectOpt(6, this, 'Домашний/Оверсайз 👕')"><span>👕 В любимых растянутых худи и трениках</span></div>
             </div>
             <button class="btn-next" id="next6" disabled onclick="goNext(7)">Далее ➡️</button>
         </div>
@@ -113,10 +117,10 @@
             <h2>6. Что делаем, если наступит неловкое молчание? 🦗</h2>
             <img class="cat-gif" src="https://media.tenor.com/00lOa1bJzCgAAAAM/side-eye-cat.gif" alt="котик">
             <div class="options-list">
-                <div class="option-item" onclick="selectOpt(7, 'Будем смотреть в телефоны 📱')">📱 Залипать в телефоны, делая вид, что мы заняты</div>
-                <div class="option-item" onclick="selectOpt(7, 'Обсудим погоду 🌤️')">🌤️ Заведем душный разговор про погоду</div>
-                <div class="option-item" onclick="selectOpt(7, 'Поиграем в гляделки 👀')">👀 Устроим суровый баттл в гляделки</div>
-                <div class="option-item" onclick="selectOpt(7, 'Буду шутить глупые шутки 🤡')">🤡 Я начну травить глупые мемы и анекдоты</div>
+                <div class="option-item" onclick="selectOpt(7, this, 'Будем смотреть в телефоны 📱')"><span>📱 Залипать в телефоны, делая вид, что мы заняты</span></div>
+                <div class="option-item" onclick="selectOpt(7, this, 'Обсудим погоду 🌤️')"><span>🌤️ Заведем душный разговор про погоду</span></div>
+                <div class="option-item" onclick="selectOpt(7, this, 'Поиграем в гляделки 👀')"><span>👀 Устроим суровый баттл в гляделки</span></div>
+                <div class="option-item" onclick="selectOpt(7, this, 'Буду шутить глупые шутки 🤡')"><span>🤡 Я начну травить глупые мемы и анекодоты</span></div>
             </div>
             <button class="btn-next" id="next7" disabled onclick="goNext(8)">Далее ➡️</button>
         </div>
@@ -126,9 +130,9 @@
             <h2>7. Самый важный вопрос. Кто платит? 💳</h2>
             <img class="cat-gif" src="https://media.tenor.com/zW-5zYj0-7kAAAAM/cat-money.gif" alt="котик">
             <div class="options-list">
-                <div class="option-item" onclick="selectOpt(8, 'Конечно ты! 😉')">😉 Ты (отличный выбор!)</div>
-                <div class="option-item" onclick="selectOpt(8, 'Пополам 🤝')">🤝 Делим счет пополам, мы за равноправие</div>
-                <div class="option-item" onclick="selectOpt(8, 'Убежим не заплатив 🏃‍♂️')">🏃‍♂️ Быстро убегаем через окно в туалете</div>
+                <div class="option-item" onclick="selectOpt(8, this, 'Конечно ты! 😉')"><span>😉 Ты (отличный выбор!)</span></div>
+                <div class="option-item" onclick="selectOpt(8, this, 'Пополам 🤝')"><span>🤝 Делим счет пополам, мы за равноправие</span></div>
+                <div class="option-item" onclick="selectOpt(8, this, 'Убежим не заплатив 🏃‍♂️')"><span>🏃‍♂️ Быстро убегаем через окно в туалете</span></div>
             </div>
             <button class="btn-next" id="next8" disabled onclick="goNext(9)">Далее ➡️</button>
         </div>
@@ -138,9 +142,9 @@
             <h2>8. Что, если свидание окажется скучным? 🥱</h2>
             <img class="cat-gif" src="https://media.tenor.com/mO_T30gB7p4AAAAM/sad-sad-cat.gif" alt="котик">
             <div class="options-list">
-                <div class="option-item" onclick="selectOpt(9, 'Вытерплю до конца 🫡')">🫡 Мужественно досижу до конца из вежливости</div>
-                <div class="option-item" onclick="selectOpt(9, 'Придумаю форс-мажор 🏃‍♀️')">🏃‍♀️ «Ой, мне звонит бабушка!» (и убегу)</div>
-                <div class="option-item" onclick="selectOpt(9, 'Скажу прямо 🗣️')">🗣️ Скажу прямо: «Слушай, погнали лучше спать»</div>
+                <div class="option-item" onclick="selectOpt(9, this, 'Вытерплю до конца 🫡')"><span>🫡 Мужественно досижу до конца из вежливости</span></div>
+                <div class="option-item" onclick="selectOpt(9, this, 'Придумаю форс-мажор 🏃‍♀️')"><span>🏃‍♀️ «Ой, мне звонит бабушка!» (и убегу)</span></div>
+                <div class="option-item" onclick="selectOpt(9, this, 'Скажу прямо 🗣️')"><span>🗣️ Скажу прямо: «Слушай, погнали лучше спать»</span></div>
             </div>
             <button class="btn-next" id="next9" disabled onclick="goNext(10)">Далее ➡️</button>
         </div>
@@ -150,9 +154,9 @@
             <h2>9. Твой уровень душности по шкале от 1 до 10? 🤓</h2>
             <img class="cat-gif" src="https://media.tenor.com/p_9wB_b6A3EAAAAM/smart-cat.gif" alt="котик">
             <div class="options-list">
-                <div class="option-item" onclick="selectOpt(10, '0/10 — Свежий бриз 🍃')">🍃 0/10 — Вообще на чилле, открыт ко всему</div>
-                <div class="option-item" onclick="selectOpt(10, '5/10 — Умеренная душность 💨')">💨 5/10 — Иногда могу поворчать на цены на проезд</div>
-                <div class="option-item" onclick="selectOpt(10, '100/10 — Профессиональный душнила 🧠')">🧠 100/10 — Исправляю чужие ошибки в «тся» и «ться»</div>
+                <div class="option-item" onclick="selectOpt(10, this, '0/10 — Свежий бриз 🍃')"><span>🍃 0/10 — Вообще на чилле, открыт ко всему</span></div>
+                <div class="option-item" onclick="selectOpt(10, this, '5/10 — Умеренная душность 💨')"><span>💨 5/10 — Иногда могу поворчать на цены</span></div>
+                <div class="option-item" onclick="selectOpt(10, this, '100/10 — Профессиональный душнила 🧠')"><span>🧠 100/10 — Исправляю ошибки в «тся» и «ться»</span></div>
             </div>
             <button class="btn-next" id="next10" disabled onclick="finishAll()">Посмотреть результат 🏁</button>
         </div>
@@ -214,10 +218,14 @@
         }
 
         // Выбор варианта
-        function selectOpt(screenNum, val) {
+        function selectOpt(screenNum, clickedElement, val) {
             const currentScreen = document.getElementById('screen' + screenNum);
+            
+            // Снимаем выделение со всех плашек на этом экране
             currentScreen.querySelectorAll('.option-item').forEach(i => i.classList.remove('selected'));
-            event.target.classList.add('selected');
+            
+            // Добавляем класс конкретно нажатой плашке
+            clickedElement.classList.add('selected');
             
             // Запоминаем ответ
             answers['q' + screenNum] = val;
