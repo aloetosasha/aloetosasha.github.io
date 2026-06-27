@@ -4,44 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Анкета века ✨</title>
+    <!-- Подключаем библиотеку для конфетти -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
         body { background-color: #ffeef2; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5); text-align: center; max-width: 450px; width: 100%; min-height: 450px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5); text-align: center; max-width: 450px; width: 100%; min-height: 500px; display: flex; flex-direction: column; justify-content: center; position: relative; }
         .screen { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
         .screen.active { display: flex; }
-        h1, h2 { color: #d1496c; margin-bottom: 20px; font-size: 22px; line-height: 1.4; }
-        .emoji { font-size: 65px; margin-bottom: 20px; display: block; }
+        h1, h2 { color: #d1496c; margin-bottom: 15px; font-size: 20px; line-height: 1.4; }
+        
+        /* Стили для гифок с котиками */
+        .cat-gif { width: 150px; height: 150px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
         .btn-group { display: flex; gap: 15px; justify-content: center; align-items: center; width: 100%; height: 60px; position: relative; }
         button { padding: 12px 28px; font-size: 16px; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.2s; }
         .btn-yes { background-color: #4caf50; color: white; z-index: 10; }
         .btn-no { background-color: #f44336; color: white; position: absolute; z-index: 10; }
-        .options-list { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 20px; }
-        .option-item { background: #fff5f7; border: 2px solid #ffd1dc; padding: 12px; border-radius: 15px; cursor: pointer; font-size: 16px; font-weight: bold; color: #555; text-align: left; transition: all 0.2s; }
+        .options-list { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 15px; }
+        .option-item { background: #fff5f7; border: 2px solid #ffd1dc; padding: 12px; border-radius: 15px; cursor: pointer; font-size: 15px; font-weight: bold; color: #555; text-align: left; transition: all 0.2s; }
         .option-item:hover, .option-item.selected { background: #ffe3e9; border-color: #d1496c; transform: scale(1.02); }
         .btn-next { background-color: #d1496c; color: white; width: 100%; }
         .btn-next:disabled { background-color: #cccccc; cursor: not-allowed; }
-        .progress-bar { width: 100%; height: 6px; background-color: #eee; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
+        .progress-bar { width: 100%; height: 6px; background-color: #eee; border-radius: 3px; margin-bottom: 15px; overflow: hidden; }
         .progress-fill { height: 100%; background-color: #d1496c; width: 0%; transition: width 0.3s ease; }
     </style>
 </head>
 <body>
 
     <div class="card">
+        <!-- Прогресс-бар -->
         <div class="progress-bar" id="pBar" style="display: none;"><div class="progress-fill" id="pFill"></div></div>
 
+        <!-- Экран 1: Главный вопрос -->
         <div class="screen active" id="screen1">
             <h1>Пойдешь со мной на свидание? 🥺</h1>
-            <span class="emoji">🐱🐾</span>
+            <img class="cat-gif" src="https://media.tenor.com/yTs96v6W8gQAAAAM/cat-kitty.gif" alt="котик">
             <div class="btn-group" id="btnContainer">
                 <button class="btn-yes" onclick="startQuiz()">Да!</button>
                 <button class="btn-no" id="noBtn">Нет</button>
             </div>
         </div>
 
+        <!-- Экран 2: Еда -->
         <div class="screen" id="screen2">
             <h2>1. Что будем кушать? 🍕</h2>
-            <span class="emoji">🍕</span>
+            <img class="cat-gif" src="https://media.tenor.com/reXfXzR_f0YAAAAM/mochi-peach.gif" alt="котик">
             <div class="options-list">
                 <div class="option-item" onclick="selectOpt(2, 'Паста/Пицца 🇮🇹')">🇮🇹 Итальянская классика</div>
                 <div class="option-item" onclick="selectOpt(2, 'Суши/Роллы 🥢')">🥢 Суши (буду красиво ронять их в соус)</div>
@@ -51,9 +59,10 @@
             <button class="btn-next" id="next2" disabled onclick="goNext(3)">Далее ➡️</button>
         </div>
 
+        <!-- Экран 3: Напитки -->
         <div class="screen" id="screen3">
             <h2>2. А пить что будем? 🥂</h2>
-            <span class="emoji">🥂</span>
+            <img class="cat-gif" src="https://media.tenor.com/f7S76eX2bY0AAAAM/peach-goma.gif" alt="котик">
             <div class="options-list">
                 <div class="option-item" onclick="selectOpt(3, 'Винишко/Коктейли 🍷')">🍷 Игристое/Винишко/Коктейли</div>
                 <div class="option-item" onclick="selectOpt(3, 'Чай/Кофе ☕️')">☕️ Благородный чай или кофеек</div>
@@ -63,9 +72,10 @@
             <button class="btn-next" id="next3" disabled onclick="goNext(4)">Далее ➡️</button>
         </div>
 
+        <!-- Экран 4: Время -->
         <div class="screen" id="screen4">
             <h2>3. Выбери идеальное время: ⏰</h2>
-            <span class="emoji">🕵️‍♂️</span>
+            <img class="cat-gif" src="https://media.tenor.com/T0bH4vS-L3oAAAAM/cat-clock.gif" alt="котик">
             <div class="options-list">
                 <div class="option-item" onclick="selectOpt(4, 'Днем ☀️')">☀️ Днем (пока светло и безопасно)</div>
                 <div class="option-item" onclick="selectOpt(4, 'Вечером 🌙')">🌙 Вечером (романтика, фонари, все дела)</div>
@@ -74,9 +84,10 @@
             <button class="btn-next" id="next4" disabled onclick="goNext(5)">Далее ➡️</button>
         </div>
 
+        <!-- Экран 5: Опоздание -->
         <div class="screen" id="screen5">
             <h2>4. На сколько ты планируешь опоздать? ⏳</h2>
-            <span class="emoji">🏃‍♀️</span>
+            <img class="cat-gif" src="https://media.tenor.com/uSSeE3vY-m0AAAAM/tkthao219-bubududu.gif" alt="котик">
             <div class="options-list">
                 <div class="option-item" onclick="selectOpt(5, 'Приду вовремя ⏱️')">⏱️ Приду минута в минуту (шок!)</div>
                 <div class="option-item" onclick="selectOpt(5, 'На 10-15 минут 🤏')">🤏 На 10-15 минут (королевское опоздание)</div>
@@ -85,9 +96,10 @@
             <button class="btn-next" id="next5" disabled onclick="goNext(6)">Далее ➡️</button>
         </div>
 
+        <!-- Экран 6: Дресс-код -->
         <div class="screen" id="screen6">
             <h2>5. Какой у нас дресс-код? 👗</h2>
-            <span class="emoji">🎭</span>
+            <img class="cat-gif" src="https://media.tenor.com/b_VfRz6-Fz0AAAAM/goma-goma-cat.gif" alt="котик">
             <div class="options-list">
                 <div class="option-item" onclick="selectOpt(6, 'Красивый/Кэжуал ✨')">✨ Стильно-модно-молодежно (кэжуал)</div>
                 <div class="option-item" onclick="selectOpt(6, 'Сверх-официальный 🤵')">🤵 Вечернее платье и смокинг (пафос!)</div>
@@ -96,9 +108,10 @@
             <button class="btn-next" id="next6" disabled onclick="goNext(7)">Далее ➡️</button>
         </div>
 
+        <!-- Экран 7: Неловкое молчание -->
         <div class="screen" id="screen7">
             <h2>6. Что делаем, если наступит неловкое молчание? 🦗</h2>
-            <span class="emoji">🤫</span>
+            <img class="cat-gif" src="https://media.tenor.com/00lOa1bJzCgAAAAM/side-eye-cat.gif" alt="котик">
             <div class="options-list">
                 <div class="option-item" onclick="selectOpt(7, 'Будем смотреть в телефоны 📱')">📱 Залипать в телефоны, делая вид, что мы заняты</div>
                 <div class="option-item" onclick="selectOpt(7, 'Обсудим погоду 🌤️')">🌤️ Заведем душный разговор про погоду</div>
@@ -108,43 +121,47 @@
             <button class="btn-next" id="next7" disabled onclick="goNext(8)">Далее ➡️</button>
         </div>
 
+        <!-- Экран 8: Кто платит -->
         <div class="screen" id="screen8">
             <h2>7. Самый важный вопрос. Кто платит? 💳</h2>
-            <span class="emoji">💰</span>
+            <img class="cat-gif" src="https://media.tenor.com/zW-5zYj0-7kAAAAM/cat-money.gif" alt="котик">
             <div class="options-list">
                 <div class="option-item" onclick="selectOpt(8, 'Конечно ты! 😉')">😉 Ты (отличный выбор!)</div>
                 <div class="option-item" onclick="selectOpt(8, 'Пополам 🤝')">🤝 Делим счет пополам, мы за равноправие</div>
-                <div class="option-item" onclick="selectOpt(8, 'Убежим не заплатив 🏃‍♂️')">🏃‍♂️ Быстро убегаем из ресторана через окно в туалете</div>
+                <div class="option-item" onclick="selectOpt(8, 'Убежим не заплатив 🏃‍♂️')">🏃‍♂️ Быстро убегаем через окно в туалете</div>
             </div>
             <button class="btn-next" id="next8" disabled onclick="goNext(9)">Далее ➡️</button>
         </div>
 
+        <!-- Экран 9: Если не понравится -->
         <div class="screen" id="screen9">
             <h2>8. Что, если свидание окажется скучным? 🥱</h2>
-            <span class="emoji">💤</span>
+            <img class="cat-gif" src="https://media.tenor.com/mO_T30gB7p4AAAAM/sad-sad-cat.gif" alt="котик">
             <div class="options-list">
                 <div class="option-item" onclick="selectOpt(9, 'Вытерплю до конца 🫡')">🫡 Мужественно досижу до конца из вежливости</div>
-                <div class="option-item" onclick="selectOpt(9, 'Придумаю форс-мажор 🏃‍♀️')">🏃‍♀️ «Ой, мне звонит бабушка, у неё рожает кот!» (и убегу)</div>
+                <div class="option-item" onclick="selectOpt(9, 'Придумаю форс-мажор 🏃‍♀️')">🏃‍♀️ «Ой, мне звонит бабушка!» (и убегу)</div>
                 <div class="option-item" onclick="selectOpt(9, 'Скажу прямо 🗣️')">🗣️ Скажу прямо: «Слушай, погнали лучше спать»</div>
             </div>
             <button class="btn-next" id="next9" disabled onclick="goNext(10)">Далее ➡️</button>
         </div>
 
+        <!-- Экран 10: Уровень душности -->
         <div class="screen" id="screen10">
             <h2>9. Твой уровень душности по шкале от 1 до 10? 🤓</h2>
-            <span class="emoji">🌡️</span>
+            <img class="cat-gif" src="https://media.tenor.com/p_9wB_b6A3EAAAAM/smart-cat.gif" alt="котик">
             <div class="options-list">
                 <div class="option-item" onclick="selectOpt(10, '0/10 — Свежий бриз 🍃')">🍃 0/10 — Вообще на чилле, открыт ко всему</div>
                 <div class="option-item" onclick="selectOpt(10, '5/10 — Умеренная душность 💨')">💨 5/10 — Иногда могу поворчать на цены на проезд</div>
-                <div class="option-item" onclick="selectOpt(10, '100/10 — Профессиональный душнила 🧠')">🧠 100/10 — Исправляю чужие ошибки в словах «тся» и «ться»</div>
+                <div class="option-item" onclick="selectOpt(10, '100/10 — Профессиональный душнила 🧠')">🧠 100/10 — Исправляю чужие ошибки в «тся» и «ться»</div>
             </div>
             <button class="btn-next" id="next10" disabled onclick="finishAll()">Посмотреть результат 🏁</button>
         </div>
 
+        <!-- Экран 11: Финал -->
         <div class="screen" id="screen11">
             <h1>Ура! Идеальный план готов! 🎉</h1>
-            <span class="emoji">😻❤️</span>
-            <div id="summary" style="font-size: 14px; color: #444; text-align: left; background: #fff5f7; padding: 15px; border-radius: 15px; width: 100%; border: 1px dashed #d1496c; max-height: 250px; overflow-y: auto;"></div>
+            <img class="cat-gif" src="https://media.tenor.com/Z7_98Y3694IAAAAM/happy-cat-dance.gif" alt="радостный котик">
+            <div id="summary" style="font-size: 14px; color: #444; text-align: left; background: #fff5f7; padding: 15px; border-radius: 15px; width: 100%; border: 1px dashed #d1496c; max-height: 200px; overflow-y: auto;"></div>
             <p style="margin-top: 15px; font-weight: bold; color: #d1496c;">Скринь этот шедевр и скидывай мне! 😉</p>
         </div>
     </div>
@@ -168,13 +185,24 @@
         noBtn.addEventListener('mouseenter', moveButton);
         noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveButton(); });
 
-        // Старт анкеты
-        function startQuiz() {
-            document.getElementById('pBar').style.display = 'block';
-            goNext(2);
+        // Функция запуска маленького конфетти при клике
+        function popConfetti() {
+            confetti({
+                particleCount: 40,
+                spread: 60,
+                origin: { y: 0.6 },
+                colors: ['#ffd1dc', '#d1496c', '#fff', '#ffb6c1']
+            });
         }
 
-        // Переключение
+        // Старт анкеты
+        function startQuiz() {
+            popConfetti();
+            document.getElementById('pBar').style.display = 'block';
+            setTimeout(() => goNext(2), 300);
+        }
+
+        // Переключение экранов
         function goNext(num) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById('screen' + num).classList.add('active');
@@ -194,11 +222,14 @@
             // Запоминаем ответ
             answers['q' + screenNum] = val;
             
+            // Бабах конфетти!
+            popConfetti();
+            
             // Включаем кнопку далее
             document.getElementById('next' + screenNum).disabled = false;
         }
 
-        // Финал
+        // Финал (Много конфетти!)
         function finishAll() {
             document.getElementById('pBar').style.display = 'none';
             
@@ -216,6 +247,16 @@
             
             document.getElementById('summary').innerHTML = summaryHTML;
             goNext(11);
+            
+            // Финальный большой залп конфетти
+            var duration = 2 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 } });
+                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 } });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
         }
     </script>
 </body>
