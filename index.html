@@ -3,208 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Приглашение ✨</title>
+    <title>Анкета века ✨</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-        }
-
-        body {
-            background-color: #ffeef2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            min-height: 380px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-        }
-
-        .screen {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .screen.active {
-            display: flex;
-        }
-
-        h1, h2 {
-            color: #d1496c;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .emoji-cat {
-            font-size: 80px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 60px;
-            position: relative;
-        }
-
-        button {
-            padding: 12px 28px;
-            font-size: 18px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.1s ease;
-        }
-
-        .btn-yes {
-            background-color: #4caf50;
-            color: white;
-            z-index: 10;
-        }
-
-        .btn-no {
-            background-color: #f44336;
-            color: white;
-            position: absolute;
-            z-index: 10;
-        }
-
-        .food-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .food-item {
-            background: #fff5f7;
-            border: 2px solid #ffd1dc;
-            padding: 12px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            color: #555;
-            transition: all 0.2s;
-        }
-
-        .food-item:hover, .food-item.selected {
-            background: #ffe3e9;
-            border-color: #d1496c;
-            transform: scale(1.02);
-        }
-
-        .btn-next {
-            background-color: #d1496c;
-            color: white;
-            width: 100%;
-        }
-
-        .btn-next:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: #ffeef2; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5); text-align: center; max-width: 450px; width: 100%; min-height: 450px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .screen { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
+        .screen.active { display: flex; }
+        h1, h2 { color: #d1496c; margin-bottom: 20px; font-size: 22px; line-height: 1.4; }
+        .emoji { font-size: 65px; margin-bottom: 20px; display: block; }
+        .btn-group { display: flex; gap: 15px; justify-content: center; align-items: center; width: 100%; height: 60px; position: relative; }
+        button { padding: 12px 28px; font-size: 16px; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.2s; }
+        .btn-yes { background-color: #4caf50; color: white; z-index: 10; }
+        .btn-no { background-color: #f44336; color: white; position: absolute; z-index: 10; }
+        .options-list { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 20px; }
+        .option-item { background: #fff5f7; border: 2px solid #ffd1dc; padding: 12px; border-radius: 15px; cursor: pointer; font-size: 16px; font-weight: bold; color: #555; text-align: left; transition: all 0.2s; }
+        .option-item:hover, .option-item.selected { background: #ffe3e9; border-color: #d1496c; transform: scale(1.02); }
+        .btn-next { background-color: #d1496c; color: white; width: 100%; }
+        .btn-next:disabled { background-color: #cccccc; cursor: not-allowed; }
+        .progress-bar { width: 100%; height: 6px; background-color: #eee; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background-color: #d1496c; width: 0%; transition: width 0.3s ease; }
     </style>
 </head>
 <body>
 
     <div class="card">
+        <div class="progress-bar" id="pBar" style="display: none;"><div class="progress-fill" id="pFill"></div></div>
+
         <div class="screen active" id="screen1">
             <h1>Пойдешь со мной на свидание? 🥺</h1>
-            <span class="emoji-cat">🐱🐾</span>
+            <span class="emoji">🐱🐾</span>
             <div class="btn-group" id="btnContainer">
-                <button class="btn-yes" onclick="nextScreen(2)">Да!</button>
+                <button class="btn-yes" onclick="startQuiz()">Да!</button>
                 <button class="btn-no" id="noBtn">Нет</button>
             </div>
         </div>
 
         <div class="screen" id="screen2">
-            <h2>Что будем кушать? 🍕</h2>
-            <div class="food-list">
-                <div class="food-item" onclick="selectFood(this, 'Пасту 🍝')">🍝 Паста</div>
-                <div class="food-item" onclick="selectFood(this, 'Бургеры 🍔')">🍔 Бургеры</div>
-                <div class="food-item" onclick="selectFood(this, 'Суши 🥢')">🥢 Суши / Роллы</div>
-                <div class="food-item" onclick="selectFood(this, 'Пиццу 🍕')">🍕 Пицца</div>
-                <div class="food-item" onclick="selectFood(this, 'Кофе и десерт 🍰')">🍰 Кофе и десерт</div>
+            <h2>1. Что будем кушать? 🍕</h2>
+            <span class="emoji">🍕</span>
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(2, 'Паста/Пицца 🇮🇹')">🇮🇹 Итальянская классика</div>
+                <div class="option-item" onclick="selectOpt(2, 'Суши/Роллы 🥢')">🥢 Суши (буду красиво ронять их в соус)</div>
+                <div class="option-item" onclick="selectOpt(2, 'Бургеры 🍔')">🍔 Бургеры (измажемся соусом вместе)</div>
+                <div class="option-item" onclick="selectOpt(2, 'Кофе и святой дух ☕️')">☕️ Чисто кофе и десертик</div>
             </div>
-            <button class="btn-next" id="nextBtn" disabled onclick="finish()">Готово ✨</button>
+            <button class="btn-next" id="next2" disabled onclick="goNext(3)">Далее ➡️</button>
         </div>
 
         <div class="screen" id="screen3">
-            <h1>Ура! 🎉</h1>
-            <span class="emoji-cat">😻❤️</span>
-            <h2 id="resultText" style="font-size: 18px; color: #555; font-weight: normal;"></h2>
+            <h2>2. А пить что будем? 🥂</h2>
+            <span class="emoji">🥂</span>
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(3, 'Винишко/Коктейли 🍷')">🍷 Игристое/Винишко/Коктейли</div>
+                <div class="option-item" onclick="selectOpt(3, 'Чай/Кофе ☕️')">☕️ Благородный чай или кофеек</div>
+                <div class="option-item" onclick="selectOpt(3, 'Просто водичку 💧')">💧 Водичку (я за ЗОЖ и трезвый ум)</div>
+                <div class="option-item" onclick="selectOpt(3, 'Лимонады 🍹')">🍹 Сладкие химозные лимонады</div>
+            </div>
+            <button class="btn-next" id="next3" disabled onclick="goNext(4)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen4">
+            <h2>3. Выбери идеальное время: ⏰</h2>
+            <span class="emoji">🕵️‍♂️</span>
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(4, 'Днем ☀️')">☀️ Днем (пока светло и безопасно)</div>
+                <div class="option-item" onclick="selectOpt(4, 'Вечером 🌙')">🌙 Вечером (романтика, фонари, все дела)</div>
+                <div class="option-item" onclick="selectOpt(4, 'В 4 утра 🧛')">🧛 В 4 утра (время для искателей приключений)</div>
+            </div>
+            <button class="btn-next" id="next4" disabled onclick="goNext(5)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen5">
+            <h2>4. На сколько ты планируешь опоздать? ⏳</h2>
+            <span class="emoji">🏃‍♀️</span>
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(5, 'Приду вовремя ⏱️')">⏱️ Приду минута в минуту (шок!)</div>
+                <div class="option-item" onclick="selectOpt(5, 'На 10-15 минут 🤏')">🤏 На 10-15 минут (королевское опоздание)</div>
+                <div class="option-item" onclick="selectOpt(5, 'На час, забудь 🤷‍♀️')">🤷‍♀️ На час. Можешь пока погулять...</div>
+            </div>
+            <button class="btn-next" id="next5" disabled onclick="goNext(6)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen6">
+            <h2>5. Какой у нас дресс-код? 👗</h2>
+            <span class="emoji">🎭</span>
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(6, 'Красивый/Кэжуал ✨')">✨ Стильно-модно-молодежно (кэжуал)</div>
+                <div class="option-item" onclick="selectOpt(6, 'Сверх-официальный 🤵')">🤵 Вечернее платье и смокинг (пафос!)</div>
+                <div class="option-item" onclick="selectOpt(6, 'Домашний/Оверсайз 👕')">👕 В любимых растянутых худи и трениках</div>
+            </div>
+            <button class="btn-next" id="next6" disabled onclick="goNext(7)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen7">
+            <h2>6. Что делаем, если наступит неловкое молчание? 🦗</h2>
+            <span class="emoji">🤫</span>
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(7, 'Будем смотреть в телефоны 📱')">📱 Залипать в телефоны, делая вид, что мы заняты</div>
+                <div class="option-item" onclick="selectOpt(7, 'Обсудим погоду 🌤️')">🌤️ Заведем душный разговор про погоду</div>
+                <div class="option-item" onclick="selectOpt(7, 'Поиграем в гляделки 👀')">👀 Устроим суровый баттл в гляделки</div>
+                <div class="option-item" onclick="selectOpt(7, 'Буду шутить глупые шутки 🤡')">🤡 Я начну травить глупые мемы и анекдоты</div>
+            </div>
+            <button class="btn-next" id="next7" disabled onclick="goNext(8)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen8">
+            <h2>7. Самый важный вопрос. Кто платит? 💳</h2>
+            <span class="emoji">💰</span>
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(8, 'Конечно ты! 😉')">😉 Ты (отличный выбор!)</div>
+                <div class="option-item" onclick="selectOpt(8, 'Пополам 🤝')">🤝 Делим счет пополам, мы за равноправие</div>
+                <div class="option-item" onclick="selectOpt(8, 'Убежим не заплатив 🏃‍♂️')">🏃‍♂️ Быстро убегаем из ресторана через окно в туалете</div>
+            </div>
+            <button class="btn-next" id="next8" disabled onclick="goNext(9)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen9">
+            <h2>8. Что, если свидание окажется скучным? 🥱</h2>
+            <span class="emoji">💤</span>
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(9, 'Вытерплю до конца 🫡')">🫡 Мужественно досижу до конца из вежливости</div>
+                <div class="option-item" onclick="selectOpt(9, 'Придумаю форс-мажор 🏃‍♀️')">🏃‍♀️ «Ой, мне звонит бабушка, у неё рожает кот!» (и убегу)</div>
+                <div class="option-item" onclick="selectOpt(9, 'Скажу прямо 🗣️')">🗣️ Скажу прямо: «Слушай, погнали лучше спать»</div>
+            </div>
+            <button class="btn-next" id="next9" disabled onclick="goNext(10)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen10">
+            <h2>9. Твой уровень душности по шкале от 1 до 10? 🤓</h2>
+            <span class="emoji">🌡️</span>
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(10, '0/10 — Свежий бриз 🍃')">🍃 0/10 — Вообще на чилле, открыт ко всему</div>
+                <div class="option-item" onclick="selectOpt(10, '5/10 — Умеренная душность 💨')">💨 5/10 — Иногда могу поворчать на цены на проезд</div>
+                <div class="option-item" onclick="selectOpt(10, '100/10 — Профессиональный душнила 🧠')">🧠 100/10 — Исправляю чужие ошибки в словах «тся» и «ться»</div>
+            </div>
+            <button class="btn-next" id="next10" disabled onclick="finishAll()">Посмотреть результат 🏁</button>
+        </div>
+
+        <div class="screen" id="screen11">
+            <h1>Ура! Идеальный план готов! 🎉</h1>
+            <span class="emoji">😻❤️</span>
+            <div id="summary" style="font-size: 14px; color: #444; text-align: left; background: #fff5f7; padding: 15px; border-radius: 15px; width: 100%; border: 1px dashed #d1496c; max-height: 250px; overflow-y: auto;"></div>
+            <p style="margin-top: 15px; font-weight: bold; color: #d1496c;">Скринь этот шедевр и скидывай мне! 😉</p>
         </div>
     </div>
 
     <script>
-        const noBtn = document.getElementById('noBtn');
-        const card = document.querySelector('.card');
-
-        // Логика бегающей кнопки
-        function moveButton(e) {
-            const cardRect = card.getBoundingClientRect();
-            
-            // Вычисляем случайные координаты внутри карточки
-            const maxX = cardRect.width - noBtn.offsetWidth - 20;
-            const maxY = cardRect.height - noBtn.offsetHeight - 20;
-            
-            const randomX = Math.random() * maxX + 10;
-            const randomY = Math.random() * maxY + 10;
-            
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.top = randomY + 'px';
-        }
-
-        noBtn.addEventListener('mouseenter', moveButton);
-        noBtn.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            moveButton();
-        });
-
-        // Переключение экранов
-        function nextScreen(num) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById('screen' + num).classList.add('active');
-        }
-
-        // Выбор еды
-        let food = '';
-        function selectFood(el, choice) {
-            document.querySelectorAll('.food-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-            food = choice;
-            document.getElementById('nextBtn').disabled = false;
-        }
-
-        function finish() {
-            document.getElementById('resultText').innerHTML = `Тогда договорились! Выбираем <strong>${food}</strong> и отлично проводим время! 🥰`;
-            nextScreen(3);
-        }
-    </script>
-</body>
-</html>
