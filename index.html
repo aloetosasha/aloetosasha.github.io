@@ -52,3 +52,197 @@
             <div class="options-list">
                 <div class="option-item" onclick="selectOpt(2, this, 'Паста/Пицца 🇮🇹')"><span>🇮🇹 Итальянская классика</span></div>
                 <div class="option-item" onclick="selectOpt(2, this, 'Суши/Роллы 🥢')"><span>🥢 Суши (буду красиво ронять их в соус)</span></div>
+                <div class="option-item" onclick="selectOpt(2, this, 'Бургеры 🍔')"><span>🍔 Бургеры (измажемся соусом вместе)</span></div>
+                <div class="option-item" onclick="selectOpt(2, this, 'Кофе и десерт ☕️')"><span>☕️ Чисто кофе и десертик</span></div>
+            </div>
+            <button class="btn-next" id="next2" disabled onclick="goNext(3)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen3">
+            <h2>2. А пить что будем? 🥂</h2>
+            <img class="step-img" src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&auto=format&fit=crop&q=60" alt="Напитки">
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(3, this, 'Винишко/Коктейли 🍷')"><span>🍷 Игристое/Винишко/Коктейли</span></div>
+                <div class="option-item" onclick="selectOpt(3, this, 'Чай/Кофе ☕️')"><span>☕️ Благородный чай или кофеек</span></div>
+                <div class="option-item" onclick="selectOpt(3, this, 'Просто водичку 💧')"><span>💧 Водичку (я за ЗОЖ и трезвый ум)</span></div>
+                <div class="option-item" onclick="selectOpt(3, this, 'Лимонады 🍹')"><span>🍹 Сладкие химозные лимонады</span></div>
+            </div>
+            <button class="btn-next" id="next3" disabled onclick="goNext(4)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen4">
+            <h2>3. Выбери идеальное время: ⏰</h2>
+            <img class="step-img" src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop&q=60" alt="Время">
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(4, this, 'Днем ☀️')"><span>☀️ Днем (пока светло и безопасно)</span></div>
+                <div class="option-item" onclick="selectOpt(4, this, 'Вечером 🌙')"><span>🌙 Вечером (романтика, фонари, все дела)</span></div>
+                <div class="option-item" onclick="selectOpt(4, this, 'В 4 утра 🧛')"><span>🧛 В 4 утра (время для искателей приключений)</span></div>
+            </div>
+            <button class="btn-next" id="next4" disabled onclick="goNext(5)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen5">
+            <h2>4. На сколько ты планируешь опоздать? ⏳</h2>
+            <img class="step-img" src="https://images.unsplash.com/photo-1508962914676-134849a727f0?w=400&auto=format&fit=crop&q=60" alt="Часы">
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(5, this, 'Приду вовремя ⏱️')"><span>⏱️ Приду минута в минуту (шок!)</span></div>
+                <div class="option-item" onclick="selectOpt(5, this, 'На 10-15 минут 🤏')"><span>🤏 На 10-15 минут (королевское опоздание)</span></div>
+                <div class="option-item" onclick="selectOpt(5, this, 'На час, забудь 🤷‍♀️')"><span>🤷‍♀️ На час. Можешь пока погулять...</span></div>
+            </div>
+            <button class="btn-next" id="next5" disabled onclick="goNext(6)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen6">
+            <h2>5. Какой у нас дресс-код? 👗</h2>
+            <img class="step-img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&auto=format&fit=crop&q=60" alt="Одежда">
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(6, this, 'Красивый/Кэжуал ✨')"><span>✨ Стильно-модно-молодежно (кэжуал)</span></div>
+                <div class="option-item" onclick="selectOpt(6, this, 'Сверх-официальный 🤵')"><span>🤵 Вечернее платье и смокинг (пафос!)</span></div>
+                <div class="option-item" onclick="selectOpt(6, this, 'Домашний/Оверсайз 👕')"><span>👕 В любимых растянутых худи и трениках</span></div>
+            </div>
+            <button class="btn-next" id="next6" disabled onclick="goNext(7)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen7">
+            <h2>6. Что делаем, если наступит неловкое молчание? 🦗</h2>
+            <img class="step-img" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&auto=format&fit=crop&q=60" alt="Телефон">
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(7, this, 'Будем смотреть в телефоны 📱')"><span>📱 Залипать в телефоны, делая вид, что заняты</span></div>
+                <div class="option-item" onclick="selectOpt(7, this, 'Обсудим погоду 🌤️')"><span>🌤️ Заведем душный разговор про погоду</span></div>
+                <div class="option-item" onclick="selectOpt(7, this, 'Поиграем в гляделки 👀')"><span>👀 Устроим суровый баттл в гляделки</span></div>
+                <div class="option-item" onclick="selectOpt(7, this, 'Буду шутить глупые шутки 🤡')"><span>🤡 Я начну травить глупые мемы и анекдоты</span></div>
+            </div>
+            <button class="btn-next" id="next7" disabled onclick="goNext(8)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen8">
+            <h2>7. Самый важный вопрос. Кто платит? 💳</h2>
+            <img class="step-img" src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=400&auto=format&fit=crop&q=60" alt="Деньги">
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(8, this, 'Конечно ты! 😉')"><span>😉 Ты (отличный выбор!)</span></div>
+                <div class="option-item" onclick="selectOpt(8, this, 'Пополам 🤝')"><span>🤝 Делим счет пополам, мы за равноправие</span></div>
+                <div class="option-item" onclick="selectOpt(8, this, 'Убежим не заплатив 🏃‍♂️')"><span>🏃‍♂️ Быстро убегаем через окно в туалете</span></div>
+            </div>
+            <button class="btn-next" id="next8" disabled onclick="goNext(9)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen9">
+            <h2>8. Что, если свидание окажется скучным? 🥱</h2>
+            <img class="step-img" src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?w=400&auto=format&fit=crop&q=60" alt="Скука">
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(9, this, 'Вытерплю до конца 🫡')"><span>🫡 Мужественно досижу до конца из вежливости</span></div>
+                <div class="option-item" onclick="selectOpt(9, this, 'Придумаю форс-мажор 🏃‍♀️')"><span>🏃‍♀️ «Ой, мне звонит бабушка!» (и убегу)</span></div>
+                <div class="option-item" onclick="selectOpt(9, this, 'Скажу прямо 🗣️')"><span>🗣️ Скажу прямо: «Слушай, погнали лучше спать»</span></div>
+            </div>
+            <button class="btn-next" id="next9" disabled onclick="goNext(10)">Далее ➡️</button>
+        </div>
+
+        <div class="screen" id="screen10">
+            <h2>9. Твой уровень душности по шкале от 1 до 10? 🤓</h2>
+            <img class="step-img" src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&auto=format&fit=crop&q=60" alt="Книги">
+            <div class="options-list">
+                <div class="option-item" onclick="selectOpt(10, this, '0/10 — Свежий бриз 🍃')"><span>🍃 0/10 — Вообще на чилле, открыт ко всему</span></div>
+                <div class="option-item" onclick="selectOpt(10, this, '5/10 — Умеренная душность 💨')"><span>💨 5/10 — Иногда могу поворчать на цены</span></div>
+                <div class="option-item" onclick="selectOpt(10, this, '100/10 — Профессиональный душнила 🧠')"><span>🧠 100/10 — Исправляю ошибки в «тся» и «ться»</span></div>
+            </div>
+            <button class="btn-next" id="next10" disabled onclick="finishAll()">Посмотреть результат 🏁</button>
+        </div>
+
+        <div class="screen" id="screen11">
+            <h1>Ура! Идеальный план готов! 🎉</h1>
+            <img class="step-img" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&auto=format&fit=crop&q=60" alt="Сердце">
+            <div id="summary" style="font-size: 14px; color: #444; text-align: left; background: #fff5f7; padding: 15px; border-radius: 15px; width: 100%; border: 1px dashed #d1496c; max-height: 200px; overflow-y: auto;"></div>
+            <p style="margin-top: 15px; font-weight: bold; color: #d1496c;">Скринь этот шедевр и скидывай мне! 😉</p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const card = document.querySelector('.card');
+        let answers = {};
+        const totalSteps = 9;
+
+        // Логика бегающей кнопки "Нет"
+        function moveButton() {
+            const cardRect = card.getBoundingClientRect();
+            const maxX = cardRect.width - noBtn.offsetWidth - 20;
+            const maxY = cardRect.height - noBtn.offsetHeight - 20;
+            const randomX = Math.random() * maxX + 10;
+            const randomY = Math.random() * maxY + 10;
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+        noBtn.addEventListener('mouseenter', moveButton);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveButton(); });
+
+        // Функция запуска маленького конфетти
+        function popConfetti() {
+            confetti({
+                particleCount: 40,
+                spread: 60,
+                origin: { y: 0.6 },
+                colors: ['#ffd1dc', '#d1496c', '#fff', '#ffb6c1']
+            });
+        }
+
+        // Старт анкеты
+        function startQuiz() {
+            popConfetti();
+            document.getElementById('pBar').style.display = 'block';
+            setTimeout(() => goNext(2), 300);
+        }
+
+        // Переключение экранов
+        function goNext(num) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + num).classList.add('active');
+            
+            if(num > 1 && num <= 10) {
+                const currentStep = num - 1;
+                document.getElementById('pFill').style.width = ((currentStep / totalSteps) * 100) + '%';
+            }
+        }
+
+        // Выбор варианта
+        function selectOpt(screenNum, clickedElement, val) {
+            const currentScreen = document.getElementById('screen' + screenNum);
+            currentScreen.querySelectorAll('.option-item').forEach(i => i.classList.remove('selected'));
+            clickedElement.classList.add('selected');
+            
+            answers['q' + screenNum] = val;
+            popConfetti();
+            document.getElementById('next' + screenNum).disabled = false;
+        }
+
+        // Финал
+        function finishAll() {
+            document.getElementById('pBar').style.display = 'none';
+            
+            const summaryHTML = `
+                📌 <strong>Кушаем:</strong> ${answers.q2}<br>
+                📌 <strong>Пьем:</strong> ${answers.q3}<br>
+                📌 <strong>Время:</strong> ${answers.q4}<br>
+                📌 <strong>Пунктуальность:</strong> ${answers.q5}<br>
+                📌 <strong>Стиль:</strong> ${answers.q6}<br>
+                📌 <strong>При неловком молчании:</strong> ${answers.q7}<br>
+                📌 <strong>Кто платит:</strong> ${answers.q8}<br>
+                📌 <strong>Если скучно:</strong> ${answers.q9}<br>
+                📌 <strong>Уровень душности:</strong> ${answers.q10}
+            `;
+            
+            document.getElementById('summary').innerHTML = summaryHTML;
+            goNext(11);
+            
+            // Финальный большой салют
+            var duration = 2 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 } });
+                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 } });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
+    </script>
+</body>
+</html>
